@@ -1,0 +1,30 @@
+# https://github.com/lowlighter/metrics
+
+name: GitHub Metrics
+on:
+  schedule:
+    - cron: "0 3 1 * *"
+  push:
+    branches: 
+      - main
+jobs:
+  github-metrics-personal:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Personal metrics
+        uses: lowlighter/metrics@master
+        with:
+          filename: github-metrics.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          # committer_token: ${{ secrets.GITHUB_TOKEN }}
+          user: fujiawei-dev
+          config_timezone: Asia/Shanghai
+          config_order: base.header, isocalendar, base.repositories, followup, pagespeed
+          config_padding: 10%
+          use_prebuilt_image: master
+          base: "header, repositories"
+          plugin_isocalendar: yes
+          plugin_lines: yes
+          plugin_traffic: yes
+          plugin_followup: yes
+          plugin_pagespeed: yes
